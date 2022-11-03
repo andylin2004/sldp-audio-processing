@@ -1,6 +1,7 @@
 import wave
 import numpy as np
-import matplotlib.pyplot as plt
+import time
+import sounddevice as sd
 
 wav_obj = wave.open('StarWars60.wav', 'rb')
 
@@ -12,11 +13,7 @@ n_channels = wav_obj.getnchannels()
 print(n_channels)
 signal_wave = wav_obj.readframes(n_samples)
 signal_array = np.frombuffer(signal_wave, dtype=np.int16)
-times = np.linspace(0, n_samples/sample_freq, num=n_samples)
-plt.figure(figsize=(15,5))
-plt.plot(times, signal_array)
-plt.title("Left Channel")
-plt.ylabel("Signal Value")
-plt.xlabel("Time (s)")
-plt.xlim(0, t_audio)
-plt.show()
+sd.play(signal_array, sample_freq)
+for i in range(n_samples):
+    print(signal_array[i])
+    time.sleep(1/sample_freq)
