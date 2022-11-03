@@ -17,3 +17,4 @@ sd.play(signal_array, sample_freq)
 for i in range(n_samples):
     print(signal_array[i])
     time.sleep(1/sample_freq)
+sd.stop()
