@@ -1,20 +1,17 @@
-import wave
 import numpy as np
-import time
-import sounddevice as sd
+import pyaudio
 
-wav_obj = wave.open('StarWars60.wav', 'rb')
+CHUNK = 1024
+FORMAT = pyaudio.paInt16
+CHANNELS = 1
+RATE = 44100
 
-sample_freq = wav_obj.getframerate()
-n_samples = wav_obj.getnframes()
-t_audio = n_samples/sample_freq
-print(t_audio)
-n_channels = wav_obj.getnchannels()
-print(n_channels)
-signal_wave = wav_obj.readframes(n_samples)
-signal_array = np.frombuffer(signal_wave, dtype=np.int16)
-sd.play(signal_array, sample_freq)
-for i in range(n_samples):
-    print(signal_array[i])
-    time.sleep(1/sample_freq)
-sd.stop()
+audio = pyaudio.PyAudio()
+
+stream = audio.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, frames_per_buffer=CHUNK)
+
+while True:
+    for i in range(0, int(RATE / CHUNK)):
+        data = np.fromstring(stream.read(CHUNK), dtype=np.int16)
+        peak=np.average(np.abs(data))*2
+        print(peak)
