@@ -13,5 +13,5 @@ stream = audio.open(format=FORMAT, channels=CHANNELS, rate=RATE, input=True, fra
 while True:
     for i in range(0, int(RATE / CHUNK)):
         data = np.fromstring(stream.read(CHUNK), dtype=np.int16)
-        peak=np.average(np.abs(data))*2
+        peak=np.average(np.abs(data))
         print(peak)
