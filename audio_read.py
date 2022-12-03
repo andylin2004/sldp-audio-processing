@@ -33,4 +33,4 @@ while True:
         data = np.fromstring(stream.read(CHUNK), dtype=np.int16)
         peak=np.average(np.abs(data))
         p.ChangeDutyCycle(100 * peak / 50000)
-        print(peak)
+        # print(peak)
