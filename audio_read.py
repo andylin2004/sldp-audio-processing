@@ -1,7 +1,6 @@
 import numpy as np
 import pyaudio
 import RPi.GPIO as GPIO          
-from time import sleep
 
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
